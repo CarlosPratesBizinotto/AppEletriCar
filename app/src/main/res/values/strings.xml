@@ -6,6 +6,12 @@
     <string name="nome">Nome</string>
     <string name="preco">Preço</string>
     <string name="bateria">Bateria</string>
-    <string name="pot_ncia">Potência</string>
+    <string name="potencia">Potência</string>
     <string name="recarga">Recarga</string>
+    <string name="preco_kwh">Preço Kwh</string>
+    <string name="km_percorrido">Km Percorrido</string>
+    <string name="calcular">Calcular</string>
+    <string name="branco">Branco</string>
+    <string name="cinza">Cinza</string>
+    <string name="preto">Preto</string>
 </resources>
