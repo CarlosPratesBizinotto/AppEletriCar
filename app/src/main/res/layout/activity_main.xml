@@ -4,10 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.MainActivity">
+    tools:context=".ui.MainActivity"
+    tools:ignore="NamespaceTypo">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_titulo" >
+
+     <com.google.android.material.tabs.TabItem
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="@string/carros"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/favoritos"/>
+
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_view_pager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout"
+
+        />
+
+
+
 
     <TextView
         android:id="@+id/tv_titulo"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
         android:layout_width="180dp"
         android:layout_height="36dp"
         android:text="@string/eletricar_s"
@@ -16,263 +54,14 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.645"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.041" />
 
-    <TextView
-        android:id="@+id/tv_carros"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/carros"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tv_img_car"
-        app:layout_constraintEnd_toStartOf="@+id/tv_favoritos"
-        app:layout_constraintHorizontal_bias="0.317"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_titulo" />
-
-    <TextView
-        android:id="@+id/tv_favoritos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="52dp"
-        android:text="@string/favoritos"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_img_car"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_titulo" />
-
-    <ImageView
-        android:id="@+id/tv_img_car"
-        android:layout_width="261dp"
-        android:layout_height="154dp"
-        android:src="@drawable/bmw_i3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_titulo"
-        app:layout_constraintVertical_bias="0.151" />
-
-    <TextView
-        android:id="@+id/tv_nome"
-        android:layout_width="40dp"
-        android:layout_height="15dp"
-        android:text="@string/nome"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.183"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_img_car"
-        app:layout_constraintVertical_bias="0.057" />
-
-    <TextView
-        android:id="@+id/tv_nome_car"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="BMW i3"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.372"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_img_car"
-        app:layout_constraintVertical_bias="0.057" />
-
-    <TextView
-        android:id="@+id/tv_preco"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/preco"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.181"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_img_car"
-        app:layout_constraintVertical_bias="0.12" />
-
-    <TextView
-        android:id="@+id/tv_preco_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="R$ 300.000,00"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.426"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_img_car"
-        app:layout_constraintVertical_bias="0.12" />
-
-    <TextView
-        android:id="@+id/tv_bateria"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="77dp"
-        android:text="@string/bateria"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.189"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_img_car"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/tv_carga_bateria"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="90,4 kWh"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.386"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_img_car"
-        app:layout_constraintVertical_bias="0.185" />
-
-    <TextView
-        android:id="@+id/tv_potencia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="77dp"
-        android:text="@string/potencia"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.194"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_img_car"
-        app:layout_constraintVertical_bias="0.079" />
-
-    <TextView
-        android:id="@+id/tv_potencia_cavalos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="500 cv"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.384"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_img_car"
-        app:layout_constraintVertical_bias="0.25" />
-
-    <TextView
-        android:id="@+id/tv_recarga"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="77dp"
-        android:text="@string/recarga"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.192"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_img_car"
-        app:layout_constraintVertical_bias="0.156" />
-
-    <TextView
-        android:id="@+id/tv_tempo_recarga"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="20 min"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.385"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_img_car"
-        app:layout_constraintVertical_bias="0.312" />
 
 
-    <TextView
-        android:id="@+id/tv_selectColorCar"
-        android:layout_width="249dp"
-        android:layout_height="37dp"
-        android:text="Selecione a cor do carro"
-        android:textColor="@color/black"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.839"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_img_car"
-        app:layout_constraintVertical_bias="0.449" />
 
-    <RadioGroup
-        android:id="@+id/rg_group_colors"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_selectColorCar"
-        tools:ignore="MissingConstraints">
-
-
-        <RadioButton
-            android:id="@+id/rb_color_black"
-            android:layout_width="90dp"
-            android:layout_height="73dp"
-            android:text="@string/preto"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.143"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.772" />
-
-        <RadioButton
-            android:id="@+id/rb_color_white"
-            android:layout_width="90dp"
-            android:layout_height="73dp"
-            android:text="@string/branco"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.485"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.772" />
-
-        <RadioButton
-            android:id="@+id/rb_color_gray"
-            android:layout_width="90dp"
-            android:layout_height="73dp"
-            android:text="@string/cinza"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.838"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.772" />
-
-    </RadioGroup>
-
-    <Button
-        android:id="@+id/btn_calular_consumo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Calcular consumo do carro"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.525"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.942" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

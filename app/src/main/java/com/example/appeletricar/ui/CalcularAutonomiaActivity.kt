@@ -1,8 +1,9 @@
-package com.example.appeletricar.presentation
+package com.example.appeletricar.ui
 
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appeletricar.R
@@ -12,6 +13,7 @@ class CalcularAutonomiaActivity : AppCompatActivity() {
     lateinit var kmpercorrido: EditText
     lateinit var btnCalcular: Button
     lateinit var resultado: TextView
+    lateinit var btnClose: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,22 +22,23 @@ class CalcularAutonomiaActivity : AppCompatActivity() {
         setupListenrs()
 
     }
-    //Recuperar os campos da ActivityMain
+    //Recuperar os campos da Activity_calcular_autonomia
     fun setupView(){
         kmpercorrido = findViewById(R.id.et_km_percorrido)
         precokwh = findViewById(R.id.et_preco_kwh)
         resultado = findViewById(R.id.et_resultadokmpreco)
         btnCalcular = findViewById(R.id.btn_calcular)
+        btnClose = findViewById(R.id.iv_close)
     }
 
 
 
     fun setupListenrs() {
         btnCalcular.setOnClickListener {
-        if (calcular() == null)
-            println("Coloque os valores")
-        else
             calcular()
+        }
+        btnClose.setOnClickListener{
+          finish()
         }
 }
 
