@@ -14,4 +14,6 @@
     <string name="branco">Branco</string>
     <string name="cinza">Cinza</string>
     <string name="preto">Preto</string>
+    <string name="response_error">Algo deu errado, por favor tente novamente mais tarde.</string>
+    <string name="saved_calc">saved_calc</string>
 </resources>

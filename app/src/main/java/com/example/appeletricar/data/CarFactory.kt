@@ -16,7 +16,8 @@ object CarFactory {
             bateria = "900 kwh",
             potencia = "200cv",
             recarga = "10 min",
-            urlPhoto = "www.google.com.br"
+            urlPhoto = "www.google.com.br",
+            isFavorite = false
 
         ),
         Carro(
@@ -26,7 +27,8 @@ object CarFactory {
             bateria = "1900 kwh",
             potencia = "2200cv",
             recarga = "12 min",
-            urlPhoto = "www.google.com.br"
+            urlPhoto = "www.google.com.br",
+            isFavorite = false
         ),
 
         Carro(
@@ -36,7 +38,8 @@ object CarFactory {
             bateria = "2900 kwh",
             potencia = "220cv",
             recarga = "9 min",
-            urlPhoto = "https://maximatech.com.br/wp-content/uploads/2019/04/logo-maximatech-e1554815418600-300x76.png"
+            urlPhoto = "https://maximatech.com.br/wp-content/uploads/2019/04/logo-maximatech-e1554815418600-300x76.png",
+            isFavorite = false
         )
     )
     //VERBOS HTTP

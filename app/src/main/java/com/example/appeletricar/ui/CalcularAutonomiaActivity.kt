@@ -1,17 +1,13 @@
 package com.example.appeletricar.ui
 
-import android.os.AsyncTask
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.loader.content.AsyncTaskLoader
 import com.example.appeletricar.R
-import java.lang.Exception
-import java.net.HttpURLConnection
 
 class CalcularAutonomiaActivity : AppCompatActivity() {
     lateinit var precokwh: EditText
@@ -25,8 +21,15 @@ class CalcularAutonomiaActivity : AppCompatActivity() {
         setContentView(R.layout.activity_calcular_autonomia)
         setupView()
         setupListenrs()
+        setupCachedResuld()
 
     }
+
+    private fun setupCachedResuld() {
+        val valorCalculado = getSharedPref()
+        resultado.text = valorCalculado.toString()
+    }
+
     //Recuperar os campos da Activity_calcular_autonomia
     fun setupView(){
         kmpercorrido = findViewById(R.id.et_km_percorrido)
@@ -54,10 +57,25 @@ class CalcularAutonomiaActivity : AppCompatActivity() {
         val result = preco / km
 
         resultado.text = result.toString()
+        saveSharedPref(result)
+
         //Log.d("Texto digitado ->", preco.toString())
         //Log.d("Texto digitado ->", km.toString())
         //Log.d("Resultado Media ->", resultado.toString())
     }
 
+    //Funcao que salva o resultado do Calcular
+    fun saveSharedPref(resultado: Float){
+        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
+        with(sharedPref.edit()){
+            putFloat(getString(R.string.saved_calc), resultado)
+            apply()
+        }
+
+    }
+    fun getSharedPref(): Float {
+        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+        return sharedPref.getFloat(getString(R.string.saved_calc), 0.0f)
+    }
 
 }

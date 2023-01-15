@@ -1,5 +1,6 @@
 package com.example.appeletricar.ui
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
@@ -12,18 +13,37 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.getSystemService
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appeletricar.R
 import com.example.appeletricar.data.CarFactory
+import com.example.appeletricar.data.CarsApi
+import com.example.appeletricar.data.local.CarrosContract
+import com.example.appeletricar.data.local.CarrosContract.CarEntry.COLUMN_NAME_BATERIA
+import com.example.appeletricar.data.local.CarrosContract.CarEntry.COLUMN_NAME_FOTOS
+import com.example.appeletricar.data.local.CarrosContract.CarEntry.COLUMN_NAME_NOME
+import com.example.appeletricar.data.local.CarrosContract.CarEntry.COLUMN_NAME_POTENCIA
+import com.example.appeletricar.data.local.CarrosContract.CarEntry.COLUMN_NAME_PRECO
+import com.example.appeletricar.data.local.CarrosContract.CarEntry.COLUMN_NAME_RECARGA
+import com.example.appeletricar.data.local.CarrosContract.CarEntry.TABLE_NAME
+import com.example.appeletricar.data.local.CarsDbHelper
 import com.example.appeletricar.dominio.Carro
 import com.example.appeletricar.ui.adapter.CarAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.json.JSONArray
 import org.json.JSONObject
 import org.json.JSONTokener
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
@@ -36,7 +56,12 @@ class CarFragment : Fragment() {
     lateinit var fabCalcular : FloatingActionButton
     lateinit var listaCarros: RecyclerView
     lateinit var progress : ProgressBar
+    lateinit var noInternetImage : ImageView
+    lateinit var noInternetText : TextView
+    lateinit var carsApi: CarsApi
+
     var carrosArray : ArrayList<Carro> = ArrayList()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,11 +74,63 @@ class CarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        checkForInternet(context)
+        setupRetrofit()
         setupView(view)
-        setupList()
         setupListenrs()
-        callServices()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(checkForInternet(context)){
+            //callServices() -> Outra forma de chamar serviços
+            getAllCars()
+        } else {
+            emptyState()
+        }
+    }
+
+
+    //Usando Retrofit para fazer ligação com o JSON
+    fun setupRetrofit(){
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://raw.githubusercontent.com/CarlosPratesBizinotto/api-EletriCars/main/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        carsApi = retrofit.create(CarsApi::class.java)
+
+    }
+
+    fun getAllCars(){
+        carsApi.getALLCars().enqueue(object : Callback<List<Carro>> {
+            override fun onResponse(call: Call<List<Carro>>, response: Response<List<Carro>>) {
+                if(response.isSuccessful){
+                    progress.visibility = View.GONE
+                    noInternetImage.visibility = View.GONE
+                    noInternetText.visibility = View.GONE
+
+                    response.body()?.let {
+                        setupList(it)
+                    }
+                } else {
+                    Toast.makeText(context,R.string.response_error, Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<Carro>>, t: Throwable) {
+                Toast.makeText(context,R.string.response_error, Toast.LENGTH_LONG).show()
+            }
+
+        })
+    }
+
+//Pode usar visibility = View.GONE/VISIBLE ou isVisible = false/true
+    fun emptyState(){
+        progress.isVisible = false
+        listaCarros.isVisible = false
+        noInternetImage.isVisible = true
+        noInternetText.isVisible = true
     }
 
     fun setupView(view: View) {
@@ -61,16 +138,22 @@ class CarFragment : Fragment() {
             fabCalcular = findViewById(R.id.fab_calcular)
             listaCarros = findViewById(R.id.rv_lista_carros)
             progress = findViewById(R.id.pb_loader)
+            noInternetImage = findViewById(R.id.iv_empty_state)
+            noInternetText = findViewById(R.id.tv_no_wifi)
         }
 
     }
 
-    fun setupList() {
-        val carroAdapter = CarAdapter(carrosArray)
+    fun setupList(lista: List<Carro>) {
+        val carroAdapter = CarAdapter(lista)
         listaCarros.apply {
             visibility = View.VISIBLE
             adapter = carroAdapter
 
+        }
+
+        carroAdapter.carItemLister = { carro ->
+            val bateria = carro.bateria
         }
 
     }
@@ -112,7 +195,7 @@ class CarFragment : Fragment() {
         }
 
     }
-
+    //Utilizar o retrofit como abstração do AsyncTask
     inner class MyTask : AsyncTask<String, String, String>() {
 
         override fun onPreExecute() {
@@ -185,13 +268,16 @@ class CarFragment : Fragment() {
                         bateria = bateria,
                         potencia = potencia,
                         recarga = recarga,
-                        urlPhoto = urlPhoto
+                        urlPhoto = urlPhoto,
+                        isFavorite = false
                     )
                     carrosArray.add(model)
                     Log.d("Model ->", model.toString())
                 }
                 progress.visibility = View.GONE
-                setupList()
+                noInternetImage.visibility = View.GONE
+                noInternetText.visibility = View.GONE
+                //setupList()
             } catch (ex: Exception){
               Log.e("Erro ->", ex.message.toString())
             }
