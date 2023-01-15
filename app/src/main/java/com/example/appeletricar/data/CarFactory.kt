@@ -39,4 +39,10 @@ object CarFactory {
             urlPhoto = "https://maximatech.com.br/wp-content/uploads/2019/04/logo-maximatech-e1554815418600-300x76.png"
         )
     )
+    //VERBOS HTTP
+      // - GET -> Para recuperar informações
+     // - POST -> Para enviar informações para um servidor
+     // - DELETE -> Para deletar algum recurso
+     // - PUT -> Alterar uma entidade como um todo (Exemplo carro, se usar esse verbo altera todas as inforamçoes)
+     // - PATCH -> Alterar um atributo da entidade
 }

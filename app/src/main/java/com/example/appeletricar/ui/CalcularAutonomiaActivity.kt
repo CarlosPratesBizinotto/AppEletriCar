@@ -1,12 +1,17 @@
 package com.example.appeletricar.ui
 
+import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.loader.content.AsyncTaskLoader
 import com.example.appeletricar.R
+import java.lang.Exception
+import java.net.HttpURLConnection
 
 class CalcularAutonomiaActivity : AppCompatActivity() {
     lateinit var precokwh: EditText
@@ -53,5 +58,6 @@ class CalcularAutonomiaActivity : AppCompatActivity() {
         //Log.d("Texto digitado ->", km.toString())
         //Log.d("Resultado Media ->", resultado.toString())
     }
+
 
 }
